@@ -5,11 +5,12 @@
     <div class="content">
       <div class="content-left">
         <div class="logo-wrapper">
-          <div class="logo">
+          <div class="logo" :class="{'highlight': totalCount>0}">
             <span class="icon-shopping_cart"></span>
+            <div class="num" v-show="totalCount > 0">{{totalCount}}</div>
           </div>
         </div>
-        <div class="price">￥{{totalPrice}}</div>
+        <div class="price" :class="{'highlight': totalPrice>0}">￥{{totalPrice}}</div>
         <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
       </div>
       <div class="content-right">
@@ -27,7 +28,7 @@ export default {
       default () {
         return [{
           price: 10,
-          count: 1
+          count: 2
         }]
       }
     },
@@ -47,6 +48,13 @@ export default {
         total += food.price * food.count
       })
       return total
+    },
+    totalCount () {
+      let count = 0
+      this.selectFoods.forEach((food) => {
+        count += food.count
+      })
+      return count
     }
   },
   data () {
@@ -88,9 +96,30 @@ export default {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-
             text-align: center;
             background: #2b343c;
+            &.highlight{
+              background: rgb(0,160,220);
+              color: #fff;
+              .icon-shopping_cart{
+                color:#fff;
+              }
+            }
+            .num{
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 48/@rem;
+              height: 32/@rem;
+              line-height: 32/@rem;
+              text-align: center;
+              border-radius: 32/@rem;
+              font-size: 18/@rem;
+              font-weight: 700;
+              color:#fff;
+              background: rgb(240, 20, 20);
+              box-shadow: 0 4/@rem 8/@rem 0 rgba(0,0,0,.4)
+            }
             .icon-shopping_cart{
               line-height: 88/@rem;
               font-size: 48/@rem;
@@ -106,6 +135,11 @@ export default {
           color: rgba(255, 255, 255, .4);
           font-weight: 700;
           line-height: 48/@rem;
+        }
+        .price{
+          &.highlight{
+            color: #fff;
+          }
         }
         .desc{
           font-size: 24/@rem;
