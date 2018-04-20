@@ -1,0 +1,32 @@
+// px 转化rem
+@rem:100rem;
+*{
+  margin: 0;
+  padding: 0;
+}
+ul{
+  list-style: none;
+}
+
+// 图标字体样式
+@import 'font.less';
+@import 'mini.less';
+@import 'line.less';
+@import 'media.less';
+@import 'animation.less';
+
+// 清楚浮动
+.clearfix{
+  display: inline-block;
+  &:after{
+    content: '';
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    clear: both;
+  }
+}
+
+
+
